@@ -45,7 +45,7 @@ class BreedTest extends TestCase
      */
     public function testABreedCanBeLoadedFromDatabase(): void
     {
-        Breed::factory()->create();
+        Breed::factory(5)->create();
 
         $selected_breed = Breed::all()->random();
 
@@ -54,6 +54,51 @@ class BreedTest extends TestCase
                 '/api/breeds/%d',
                 $selected_breed->id
             )
+        );
+
+        $response->assertStatus(200)
+            ->assertJsonStructure([
+                'data' => [
+                    'id',
+                    'animal_type',
+                    'name',
+                    'temperament',
+                    'alternative_names',
+                    'life_span',
+                    'origin',
+                    'wikipedia_url',
+                    'country_code',
+                    'description',
+                    'favourite',
+                    'created_at',
+                    'updated_at',
+                ]
+            ])
+            ->assertJson([
+                'data' => [
+                    'id' => $selected_breed->id
+                ]
+            ]);
+    }
+
+    /**
+     * Test API requests to PUT /api/breed/{id} updates the DB and returns the appropriate JSON structure.
+     *
+     * @return void
+     */
+    public function testABreedCanBeUpdated(): void
+    {
+        Breed::factory(5)->create();
+        $updated_breed = Breed::factory()->make()->toArray();
+
+        $selected_breed = Breed::all()->random();
+
+        $response = $this->putJson(
+            sprintf(
+                '/api/breeds/%d',
+                $selected_breed->id
+            ),
+            $updated_breed
         );
 
         $response->assertStatus(200)

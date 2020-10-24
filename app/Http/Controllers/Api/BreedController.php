@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\UpdateBreed;
 use App\Http\Resources\BreedResource;
 use App\Models\Breed;
 use Illuminate\Http\Request;
@@ -14,11 +15,19 @@ class BreedController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request request with animal_type, name or breed keys as filters
+     * @return BreedResource
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new BreedResource(Breed::all());
+        // There's inconsistency between the word doc and your postman collection here.
+        // doc says "name", postman says "breed". I'll allow both.
+        $results = Breed::filter(
+            $request->only('animal_type', 'name', 'breed')
+        );
+
+        // if no results, call 3rd party API
+        return new BreedResource($results);
     }
 
     /**
@@ -67,13 +76,14 @@ class BreedController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int                       $id
+     * @param UpdateBreed $request
+     * @param Breed $breed
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateBreed $request, Breed $breed)
     {
-        return response([], IlluminateRepsonse::HTTP_NOT_IMPLEMENTED);
+        $breed->update($request->validated());
+        return new BreedResource($breed);
     }
 
     /**

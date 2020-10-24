@@ -21,7 +21,7 @@ class BreedFactory extends Factory
      */
     public function definition()
     {
-        $alternative_names = implode(
+        $temperament = implode(
             ',',
             $this->faker->randomElements(
                 [
@@ -41,9 +41,13 @@ class BreedFactory extends Factory
         return [
             'animal_type'       => $this->faker->randomElement(['dog', 'cat']),
             'name'              => $this->faker->word,
-            'temperament'       => $this->faker->word,
-            'alternative_names' => $alternative_names,
-            'life_span'         => $this->faker->numberBetween(5, 25),
+            'temperament'       => $temperament,
+            'alternative_names' => implode(',', $this->faker->words(4)),
+            'life_span'         => sprintf(
+                '%d - %d',
+                $this->faker->numberBetween(5, 15),
+                $this->faker->numberBetween(16, 25)
+            ),
             'origin'            => $this->faker->country,
             'wikipedia_url'     => $this->faker->url,
             'country_code'      => $this->faker->countryCode,

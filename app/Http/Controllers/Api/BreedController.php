@@ -11,7 +11,6 @@ use Config;
 use Fcp\AnimalBreedsSearch\AnimalBreedsSearch;
 // This includes constants for HTTP status codes.
 use Illuminate\Http\Request;
-use phpDocumentor\Reflection\Types\Collection;
 
 class BreedController extends Controller
 {
@@ -49,9 +48,7 @@ class BreedController extends Controller
             )
         );
 
-        // TODO: this could all be refactored
-        //$results = new \Illuminate\Support\Collection();
-
+        // TODO: from this point, this could all be refactored
         // TODO: Update this to be name or breed.
         $search_results = $breed_api->search($request->input('breed'));
 

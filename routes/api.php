@@ -15,12 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('register', [AuthController::class, 'register'])->name('user.register');
+// NOTE: made changes to Middleware/Authenticate to support "user.login" route name.
 Route::post('login', [AuthController::class, 'login'])->name('user.login');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [UserController::class, 'me'])->name('user.me');
+    Route::resource('/breeds', BreedController::class)->only('index', 'show', 'update', 'destroy');
 });
-Route::get('/test', function () {
-   echo "test" ;
-});
-Route::resource('/breeds', BreedController::class);

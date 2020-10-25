@@ -15,6 +15,8 @@ class CreateBreedsTable extends Migration
     {
         Schema::create('breeds', function (Blueprint $table) {
             $table->id();
+            // ID on 3rd party system.
+            $table->string('remote_id')->nullable();
             // Validate to dog or cat.
             // I'd probably split this into it's own table and foreign key it in "real world".
             $table->string('animal_type');
@@ -22,7 +24,7 @@ class CreateBreedsTable extends Migration
             // if it can be unique and we're using "name" to search for breeds it'd be much faster indexed.
             $table->string('name')->nullable();
             // I'd probably split this into it's own table and foreign key it in "real world".
-            $table->string('temperament');
+            $table->string('temperament')->nullable();
             // I'm KISSing but this could be a "pigs ear" relationship
             // or broken into it's own table of searchable strings.
             $table->string('alternative_names')->nullable();

@@ -34,6 +34,9 @@ class AnimalBreedsSearchServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/animal-breeds-search.php', 'animal-breeds-search');
 
         // Register the animal breed search service here
+        $this->app->bind('animalBreedsSearch', function($app) {
+            return new AnimalBreedsSearch();
+        });
     }
 
     /**

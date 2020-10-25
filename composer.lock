@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e0d427f5467044b558f0a622c7e3438",
+    "content-hash": "11009dde46c8160d1f2c5dab1dc39459",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -424,11 +424,11 @@
         },
         {
             "name": "fcp/animal-breeds-search",
-            "version": "dev-master",
+            "version": "dev-feature-database",
             "dist": {
                 "type": "path",
                 "url": "./packages/fcp/animal-breeds-search",
-                "reference": "6ccd71c5ebfafbf0e6118608723e1b29588bc2bc"
+                "reference": "539c5c87bfb4671ed151991e9298b2475fabd432"
             },
             "require": {
                 "guzzlehttp/guzzle": "^7.0",
@@ -490,8 +490,7 @@
                 "Laravel"
             ],
             "transport-options": {
-                "symlink": true,
-                "relative": true
+                "symlink": true
             }
         },
         {
